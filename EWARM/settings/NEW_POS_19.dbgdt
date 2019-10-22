@@ -1005,7 +1005,7 @@
                     <item>acceleration_mg</item>
                     <item>yaw_angle</item>
                     <item>ch</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
