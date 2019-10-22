@@ -1,0 +1,34 @@
+DEVLOG
+
+SPI1
+   CLK  PA5
+   MISO PA6
+   MOSI PA7
+   CSNM PC15
+SPI2
+   CLK  PB13
+   MISO PC2
+   MOSI PC3
+   CSNM PC13
+SPI3
+   CLK  PC10
+   MISO PC11
+   MOSI PC12
+   CSNM PC14
+
+2019.10.18  1.31    状态：已实现软件spi编码器 硬件spi陀螺仪 但是陀螺仪角速度读取寄存器未置1
+2019.10.20  8.24    状态：已实现编码器读取函数，下一步实现陀螺仪读取函数
+2019.10.20  19.11   状态：已实现陀螺仪读数据 问题： 1.取零票最多取100个数据左右  
+													2.转九十度 角度变化为270左右
+													3.零点漂移很明显
+													
+													
+													
+													
+													
+													
+													
+													
+													
+													
+													bug：假if systickflag要放在tick函数中
