@@ -38,10 +38,7 @@ extern Wheel wheel_x;
 extern Wheel wheel_y;
 extern float diameter_x;
 extern float diameter_y;
-
-      
-
-
+   
 #ifdef __cplusplus
 }
 #endif

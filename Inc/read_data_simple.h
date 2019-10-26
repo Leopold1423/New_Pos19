@@ -7,18 +7,22 @@
 #define CS_SPI2_GPIO_Port   GPIOC
 #define CS_SPI2_Pin         GPIO_PIN_13
 
-
-extern float acceleration_mg[3];
-extern float angular_rate_mdps[3];
-extern float zero_angular_rate[3];
-extern float zero_acceleration[3];
-extern float yaw_angle;
-
+typedef struct Angle
+{
+  float acceleration_mg[3];
+  float angular_rate_mdps[3];
+  float zero_acceleration_mg[3];
+  float zero_angular_rate_mdps[3];
+  float angular_rate[3];
+  float delta_yawangle[3];
+  float yawangle[3];
+}Angle;
+extern Angle angle;
+void asm330lhh_device_init();
 void asm330lhh_init();
 void asm330lhh_run(void);
 void Get_Yaw_angle();
-void Show_anglerate();
-void Show_accel();
+void Get_Yaw_angle_0();
 #ifdef __cplusplus
 }
 #endif

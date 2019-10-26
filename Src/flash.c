@@ -69,15 +69,14 @@ void load_prams()
     if(isnan(flash_data[i])) flash_data[i] = 0;
   }	
   uprintf("\r\n");
-  kx_center=flash_data[0];
-  ky_center=flash_data[1];
-  X_diameter=flash_data[2];
-  y_diameter=flash_data[3];
-  time=(int)flash_data[4];
-  CANSEND_ID=(uint16_t)flash_data[5];
-  encoder.encoderX_dir=(int)flash_data[6];
-  encoder.encoderY_dir=(int)flash_data[7];
-//  canmtrid = (int)flash_data[17];
+//  kx_center=flash_data[0];
+//  ky_center=flash_data[1];
+//  X_diameter=flash_data[2];
+//  y_diameter=flash_data[3];
+//  time=(int)flash_data[4];
+//  CANSEND_ID=(uint16_t)flash_data[5];
+//
+////  canmtrid = (int)flash_data[17];
 }
 
 //获取某个地址所在的flash扇区

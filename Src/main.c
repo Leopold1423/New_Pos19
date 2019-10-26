@@ -68,22 +68,22 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-Encoder encoder;      //!拆
-Triangle triangle;    //!拆
 Flag flag;
-
 static uint32_t time_ms = 0;
-int time = 5;
 
 void flag_init()
 {
   flag.fivems=0;
+  flag.fiftyms=0;
   flag.halfs=0;
   flag.ones=0;
-  flag.encoder=0;
-  flag.read=0;
-  flag.wave=0;
-  
+  flag.readpos=0;
+  flag.readcircle=0;
+  flag.readangle=0;
+  flag.wave=0; 
+  flag.test1=0;
+  flag.test2=0;
+  flag.test3=0;
 }
 
 /* USER CODE END 0 */
@@ -127,58 +127,81 @@ int main(void)
   /* USER CODE BEGIN 2 */
   simplelib_init(&huart2, &hcan1);  
   uprintf("hello\r\n");
-  load_prams();
+  //load_prams();
   flag_init();
   asm330lhh_init();
-  wheel_init();
-  
+  wheel_init();  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-    
+  {    
     simplelib_run();
     if(flag.fivems == 1)
     {    
       flag.fivems=0;
       Get_Yaw_angle();
+      //Get_Yaw_angle_0();
       Get_Wheel_x();
-      Get_Wheel_y();
-
-      if(flag.encoder == 1)
-        {
-          uprintf("x=%f          y=%f      \r\n",encoder.X,encoder.Y);       //!gai
-        }
+      Get_Wheel_y();  
+      
       if(flag.wave==1)
         {
-          send_wave(triangle.x,0,triangle.y,triangle.showangle);       //!gai
+          send_wave(position.world_x,0,position.world_y,position.world_yaw);       
+        }  
+    }
+    if(flag.fiftyms==1)
+    {
+      flag.fiftyms=0;
+      if(flag.test1==1)
+        {
+          uprintf("%f\r",angle.angular_rate_mdps[0]); 
+        }
+      if(flag.test2==1)
+        {
+          uprintf("%f\r",angle.angular_rate_mdps[1]); 
+        }
+      if(flag.test3==1)
+        {
+          uprintf("%f\r",angle.angular_rate_mdps[2]); 
+        }
+      if(flag.test1==2)
+        {
+          uprintf("%f\r",angle.acceleration_mg[0]); 
+        }
+      if(flag.test2==2)
+        {
+          uprintf("%f\r",angle.acceleration_mg[1]); 
+        }
+      if(flag.test3==2)
+        {
+          uprintf("%f\r",angle.acceleration_mg[2]); 
         }
     }
     if(flag.halfs==1)
     {
       flag.halfs=0;
-      uprintf("%f\r",yaw_angle); 
-      if(flag.encoder == 1)
-        {
-          uprintf("x=%f          y=%f      \r\n",encoder.X,encoder.Y); //!gai
-        }
     }
     if(flag.ones==1)
     {    
       flag.ones=0;
-      //uprintf("%f\r",angular_rate_mdps[2]);
-      
-      
-//      uprintf("anglerate=%f\r",angular_rate_mdps[2]-zero_angular_rate[2]);
-      //Show_accel();
-      //Show_Wheel_x();
-      //Show_Wheel_y();
-      if(flag.read==1)
+                
+      if(flag.readangle==1)
         {
-          uprintf("x=%f     y=%f     angle=%f\r",triangle.x,triangle.y,triangle.showangle); //!gai
+          //uprintf("%f\r",angle_toshow(angle.yawangle[2]));
+          uprintf("%f         %f       %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
+        }   
+      if(flag.readpos==1)
+        {
+          uprintf("x=%f     y=%f     angle=%f\r",position.world_x,position.world_y,position.world_yaw);
         }
+      if(flag.readcircle==1)
+        {
+          uprintf("x=%f     y=%f \r",wheel_x.now_circlenum,wheel_y.now_circlenum); 
+        }
+         
+      
     }
     /* USER CODE END WHILE */
 
@@ -240,6 +263,10 @@ void HAL_IncTick(void)
   if (time_ms%500 == 0) 
   {
     flag.halfs = 1;
+  }
+  if (time_ms%50 == 0) 
+  {
+    flag.fiftyms = 1;
   }
   if (time_ms%1000 == 0) 
   {

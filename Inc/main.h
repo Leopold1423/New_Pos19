@@ -41,19 +41,19 @@ extern "C" {
 typedef struct Flag
 {
   int fivems;
+  int fiftyms;
   int halfs;
   int ones;
-    int wave;
-    int read;
-    int encoder; 
+  int wave;
+  int readpos;
+  int readcircle;
+  int readangle;
+  int test1;
+  int test2;
+  int test3;
 }Flag;   
 extern Flag flag;
 
-
-
-
-extern int time;
-extern float inputangle;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

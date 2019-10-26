@@ -10,16 +10,11 @@
  *******************************************************************************/
 #include "string.h"
 #include "as5047p.h"
-#include "cmd.h"
 #include "imitate_spi.h"
+#include "cmd.h"
 Wheel wheel_x,wheel_y;
 float diameter_x=1,diameter_y=1;
 
-/**
- * @brief	返回软件spi1磁编码器位置
- * @param	none
- * @return	X-SPI1磁编码器位置
- */
 uint16_t as5047p_Get_Position_x()
 {
     uint8_t readBuffer[2]={1,1};
@@ -30,11 +25,6 @@ uint16_t as5047p_Get_Position_x()
     return position;
 }
 
-/**
- * @brief	返回软件spi3磁编码器位置
- * @param	none
- * @return	X-SPI3磁编码器位置
- */
 uint16_t as5047p_Get_Position_y()
 {
     uint8_t readBuffer[2]={1,1};
@@ -44,7 +34,6 @@ uint16_t as5047p_Get_Position_y()
     uint16_t position=(uint16_t)((readBuffer[0]&0x3f)*256+readBuffer[1]);
     return position;
 }
-
 
 void wheel_init()
 {
@@ -59,11 +48,7 @@ void wheel_init()
   wheel_y.last_position = wheel_y.zero_position;
   wheel_y.now_position = wheel_y.zero_position;
 }
-/**
- * @brief	返回软件spi3磁编码器位置
- * @param	none
- * @return	X-SPI3磁编码器位置
- */
+
 void Get_Basic_x()
 {
   //now_position 
@@ -95,11 +80,6 @@ void Get_Basic_x()
   
 }
 
-/**
- * @brief	返回软件spi3磁编码器位置
- * @param	none
- * @return	X-SPI3磁编码器位置
- */
 void Get_Basic_y()
 {
   //now_position 
@@ -131,41 +111,31 @@ void Get_Basic_y()
   
 }
 
-/**
- * @brief	返回软件spi3磁编码器位置
- * @param	none
- * @return	-SPI3磁编码器位置
- */
 void Get_Wheel_x()
 {
   Get_Basic_x();
   float cnt = (float)(wheel_x.now_circlenum - wheel_x.last_circlenum + (wheel_x.now_angle-wheel_x.last_angle)/360);
   wheel_x.delta_distance= 2*3.1415926 * diameter_x * cnt ;
-  wheel_x.full_distance= 2*3.1415926 * diameter_x * (wheel_x.now_circlenum + wheel_x.now_angle/360);
+  wheel_x.full_distance= 2*3.1415926 * diameter_x * (wheel_x.now_circlenum + wheel_x.circlesum/360);
   
   //last变量赋值
   wheel_x.last_position = wheel_x.now_position;
   wheel_x.last_angle = wheel_x.now_angle;
   wheel_x.last_circlenum = wheel_x.now_circlenum;
 }
-/**
- * @brief	返回软件spi3磁编码器位置
- * @param	none
- * @return	-SPI3磁编码器位置
- */
+
 void Get_Wheel_y()
 {
   Get_Basic_y();
   float cnt = (float)(wheel_y.now_circlenum - wheel_y.last_circlenum + (wheel_y.now_angle-wheel_y.last_angle)/360);
   wheel_y.delta_distance= 2*3.1415926 * diameter_y * cnt ;
-  wheel_y.full_distance= 2*3.1415926 * diameter_y * (wheel_y.now_circlenum + wheel_y.now_angle/360);
+  wheel_y.full_distance= 2*3.1415926 * diameter_y * (wheel_y.now_circlenum + wheel_y.circlesum/360);
   
   //last变量赋值
   wheel_y.last_position = wheel_y.now_position;
   wheel_y.last_angle = wheel_y.now_angle;
   wheel_y.last_circlenum = wheel_y.now_circlenum;
 }
-
 
 void Show_Wheel_x()
 {

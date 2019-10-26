@@ -1046,13 +1046,16 @@
             <group>
                 <name>calcul</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\angle.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\calculate.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\encoder.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\filter.c</name>
+                    <name>$PROJ_DIR$\..\Src\karman.c</name>
                 </file>
             </group>
             <group>
