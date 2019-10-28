@@ -146,42 +146,46 @@ int main(void)
       Get_Wheel_x();
       Get_Wheel_y();  
       
+      if(flag.test1==1)
+        {
+          send_wave(pre_angle.acceleration_g[0]*10,0,pre_angle.acceleration_g[1]*10,pre_angle.acceleration_g[2]*10);  
+        }
+      if(flag.test2==1)
+        {
+          send_wave(pre_angle.angular_rate_dps[0]*10,0,pre_angle.angular_rate_dps[1]*10,pre_angle.angular_rate_dps[2]*10);
+        }
+      if(flag.test3==1)
+        {
+           send_wave(angle.yawangle[0],0,angle.yawangle[1],angle.yawangle[2]);       
+        }         
+      
       if(flag.wave==1)
         {
-          send_wave(position.world_x,0,position.world_y,position.world_yaw);       
+         send_wave(position.world_x,0,position.world_y,position.world_yaw);       
         }  
     }
     if(flag.fiftyms==1)
     {
-      flag.fiftyms=0;
-      if(flag.test1==1)
-        {
-          uprintf("%f\r",angle.angular_rate_mdps[0]); 
-        }
-      if(flag.test2==1)
-        {
-          uprintf("%f\r",angle.angular_rate_mdps[1]); 
-        }
-      if(flag.test3==1)
-        {
-          uprintf("%f\r",angle.angular_rate_mdps[2]); 
-        }
-      if(flag.test1==2)
-        {
-          uprintf("%f\r",angle.acceleration_mg[0]); 
-        }
-      if(flag.test2==2)
-        {
-          uprintf("%f\r",angle.acceleration_mg[1]); 
-        }
-      if(flag.test3==2)
-        {
-          uprintf("%f\r",angle.acceleration_mg[2]); 
-        }
+      flag.fiftyms=0;  
     }
     if(flag.halfs==1)
     {
       flag.halfs=0;
+       if(flag.test1==2)
+        {
+          uprintf("%f      %f      %f\r",
+                 pre_angle.acceleration_g[0],pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);
+            //uprintf("%f\r",angle.angular_rate[2]);
+        }
+      if(flag.test2==2)
+        {
+          uprintf("%f      %f      %f\r",
+                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2]); 
+        }
+      if(flag.test3==2)
+        {
+          uprintf("%f      %f      %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]); 
+        }
     }
     if(flag.ones==1)
     {    
@@ -189,8 +193,8 @@ int main(void)
                 
       if(flag.readangle==1)
         {
-          //uprintf("%f\r",angle_toshow(angle.yawangle[2]));
-          uprintf("%f         %f       %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
+          uprintf("%f\r",angle_toshow(angle.yawangle[2]));
+          //uprintf("%f         %f       %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
         }   
       if(flag.readpos==1)
         {

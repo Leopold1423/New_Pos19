@@ -1052,6 +1052,9 @@
                     <name>$PROJ_DIR$\..\Src\calculate.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\easy_angle.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\encoder.c</name>
                 </file>
                 <file>

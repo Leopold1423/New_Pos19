@@ -1,13 +1,4 @@
-/*******************************************************************************
- * Copyright:		BUPT
- * File Name:		as5047p.c
- * Author:			Leo
- * Description:		None
- * Bug:				None
- * Version:			0.1
- * Data:			2019/10/18 Fri 22:02
- * Todo:			软件spi处理磁编码器
- *******************************************************************************/
+
 #include "string.h"
 #include "as5047p.h"
 #include "imitate_spi.h"

@@ -179,7 +179,6 @@ void uprintf_to(UART_HandleTypeDef *huart, char *fmt, ...) {
     va_start(arg_ptr, fmt);
     size = vsnprintf(print_buffer, PRINT_BUFFER_SIZE, fmt, arg_ptr);
     va_end(arg_ptr);
-
     HAL_UART_Transmit_DMA(huart, (uint8_t *)print_buffer, size);
     // HAL_UART_Transmit(huart,(uint8_t *)uart_buffer,size,1000);
 }
@@ -194,6 +193,7 @@ void send_wave(float arg1, float arg2, float arg3, float arg4) {
     memcpy(s + 8, &arg2, sizeof(arg1));
     memcpy(s + 12, &arg3, sizeof(arg1));
     memcpy(s + 16, &arg4, sizeof(arg1));
+    CMD_USART.gState = HAL_UART_STATE_READY;         //手动复位
     HAL_UART_Transmit_DMA(&CMD_USART, (uint8_t *)s, 22);
 }
 

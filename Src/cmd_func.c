@@ -12,12 +12,12 @@ void cmd_test_func(int argc,char *argv[])
   int n = atoi(argv[1]);
   switch (n)
   {
-  case 1:flag.test1 = 1;uprintf("test1 OK\r\n");break;
-  case 2:flag.test2 = 1;uprintf("test2 OK\r\n");break;
-  case 3:flag.test3 = 1;uprintf("test3 OK\r\n");break;
-  case 4:flag.test1 = 2;uprintf("test4 OK\r\n");break;
-  case 5:flag.test2 = 2;uprintf("test5 OK\r\n");break;
-  case 6:flag.test3 = 2;uprintf("test6 OK\r\n");break;
+  case 1:flag.test1 = 1;flag.test2 = 0;flag.test3 = 0;uprintf("test1 OK\r\n");break;
+  case 2:flag.test2 = 1;flag.test1 = 0;flag.test3 = 0;uprintf("test2 OK\r\n");break;
+  case 3:flag.test3 = 1;flag.test1 = 0;flag.test2 = 0;uprintf("test3 OK\r\n");break;
+  case 4:flag.test1 = 2;flag.test2 = 0;flag.test3 = 0;uprintf("test4 OK\r\n");break;
+  case 5:flag.test2 = 2;flag.test1 = 0;flag.test3 = 0;uprintf("test5 OK\r\n");break;
+  case 6:flag.test3 = 2;flag.test1 = 0;flag.test2 = 0;uprintf("test6 OK\r\n");break;
   default :flag.test1 = 0;flag.test2 = 0;flag.test3 = 0;uprintf("test stopped\r\n");
   }
 }

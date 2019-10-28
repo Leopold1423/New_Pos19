@@ -49,22 +49,39 @@ void Slide(Angle* angle){
   float sum_acc_y = 0;
   float sum_acc_z = 0;
   
-   angle->angular_rate_mdps[0] = KalMan(&kal_ang1,angle->angular_rate_mdps[0]);
-   angle->angular_rate_mdps[1] = KalMan(&kal_ang2,angle->angular_rate_mdps[1]);
-   angle->angular_rate_mdps[2] = KalMan(&kal_ang3,angle->angular_rate_mdps[2]);
-   angle->acceleration_mg[0] = KalMan(&kal_ang4,angle->acceleration_mg[0]);
-   angle->acceleration_mg[1] = KalMan(&kal_ang5,angle->acceleration_mg[1]);
-   angle->acceleration_mg[2] = KalMan(&kal_ang6,angle->acceleration_mg[2]);
+   angle->angular_rate_dps[0] = KalMan(&kal_ang1,angle->angular_rate_dps[0]);
+   angle->angular_rate_dps[1] = KalMan(&kal_ang2,angle->angular_rate_dps[1]);
+   angle->angular_rate_dps[2] = KalMan(&kal_ang3,angle->angular_rate_dps[2]);
+   angle->acceleration_g[0] = KalMan(&kal_ang4,angle->acceleration_g[0]);
+   angle->acceleration_g[1] = KalMan(&kal_ang5,angle->acceleration_g[1]);
+   angle->acceleration_g[2] = KalMan(&kal_ang6,angle->acceleration_g[2]);
     
-   acc_angle_x_buff[i++] = angle->angular_rate_mdps[0];
-   acc_angle_y_buff[i++] = angle->angular_rate_mdps[1];
-   acc_angle_z_buff[i++] = angle->angular_rate_mdps[2];
-   acc_x_buff[i++] = angle->acceleration_mg[0];
-   acc_y_buff[i++] = angle->acceleration_mg[1];
-   acc_z_buff[i++] = angle->acceleration_mg[2];
+   for(int j=0;j<5;j++)
+   {
+   acc_angle_x_buff[j] = acc_angle_x_buff[j+1];
+   acc_angle_y_buff[j] = acc_angle_y_buff[j+1];
+   acc_angle_z_buff[j] = acc_angle_z_buff[j+1];
+   acc_x_buff[j] = acc_x_buff[j+1];
+   acc_y_buff[j] = acc_y_buff[j+1];
+   acc_z_buff[j] = acc_z_buff[j+1];
+   }   
+   acc_angle_x_buff[5] = angle->angular_rate_dps[0];
+   acc_angle_y_buff[5] = angle->angular_rate_dps[1];
+   acc_angle_z_buff[5] = angle->angular_rate_dps[2];
+   acc_x_buff[5] = angle->acceleration_g[0];
+   acc_y_buff[5] = angle->acceleration_g[1];
+   acc_z_buff[5] = angle->acceleration_g[2];
    
-  if(i == 6) i = 0;
-  
+   
+//   acc_angle_x_buff[i++] = angle->angular_rate_dps[0];
+//   acc_angle_y_buff[i++] = angle->angular_rate_dps[1];
+//   acc_angle_z_buff[i++] = angle->angular_rate_dps[2];
+//   acc_x_buff[i++] = angle->acceleration_g[0];
+//   acc_y_buff[i++] = angle->acceleration_g[1];
+//   acc_z_buff[i++] = angle->acceleration_g[2];
+//   
+//  if(i == 6) i = 0;
+//  
   for(count = 0; count < 6; count++)
   {
     sum_acc_angle_x += acc_angle_x_buff[count];
@@ -74,12 +91,15 @@ void Slide(Angle* angle){
     sum_acc_y += acc_y_buff[count];
     sum_acc_z += acc_z_buff[count];    
   }
-  angle->angular_rate_mdps[0] = (float)(sum_acc_angle_x/6);
-  angle->angular_rate_mdps[1] = (float)(sum_acc_angle_y/6);
-  angle->angular_rate_mdps[2] = (float)(sum_acc_angle_z/6);
-  angle->acceleration_mg[0] = (float)(sum_acc_x/6);
-  angle->acceleration_mg[1] = (float)(sum_acc_y/6);
-  angle->acceleration_mg[2] = (float)(sum_acc_z/6);
+   
+
+
+  angle->angular_rate_dps[0] = (float)(sum_acc_angle_x/6);
+  angle->angular_rate_dps[1] = (float)(sum_acc_angle_y/6);
+  angle->angular_rate_dps[2] = (float)(sum_acc_angle_z/6);
+  angle->acceleration_g[0] = (float)(sum_acc_x/6);
+  angle->acceleration_g[1] = (float)(sum_acc_y/6);
+  angle->acceleration_g[2] = (float)(sum_acc_z/6);
   
 }
 

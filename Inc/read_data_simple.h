@@ -9,15 +9,17 @@
 
 typedef struct Angle
 {
-  float acceleration_mg[3];
-  float angular_rate_mdps[3];
-  float zero_acceleration_mg[3];
-  float zero_angular_rate_mdps[3];
+  float acceleration_g[3];
+  float angular_rate_dps[3];
+  float zero_acceleration_g[3];
+  float zero_angular_rate_dps[3];
   float angular_rate[3];
   float delta_yawangle[3];
   float yawangle[3];
 }Angle;
 extern Angle angle;
+extern Angle pre_angle;
+
 void asm330lhh_device_init();
 void asm330lhh_init();
 void asm330lhh_run(void);
