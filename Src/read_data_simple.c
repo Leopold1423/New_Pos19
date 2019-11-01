@@ -179,50 +179,60 @@ Angle pre_angle;
 void Get_Yaw_angle()
 {
   asm330lhh_run();
-  
-  
-  
+  //对pre_angle赋值  
   pre_angle.acceleration_g[0]= angle.acceleration_g[0];
   pre_angle.acceleration_g[1]= angle.acceleration_g[1];
   pre_angle.acceleration_g[2]= angle.acceleration_g[2];
   pre_angle.angular_rate_dps[0]= angle.angular_rate_dps[0];
   pre_angle.angular_rate_dps[1]= angle.angular_rate_dps[1];
   pre_angle.angular_rate_dps[2]= angle.angular_rate_dps[2];
-  
+  // 六轴的零漂
   pre_angle.zero_angular_rate_dps[0] = 286.9881557/1000;
   pre_angle.zero_angular_rate_dps[1] = -383.649635/1000;
   pre_angle.zero_angular_rate_dps[2] = -201.3589212/1000;
   pre_angle.zero_acceleration_g[0] = -35.5791181/1000;
   pre_angle.zero_acceleration_g[1] = -25.10951367/1000;
   pre_angle.zero_acceleration_g[2] = 0;     //1006.11278/1000;
-  
-  float ac_angle[3];
-  
+  //卡尔曼与四元数
   Slide(&pre_angle);
-  //get_angle(pre_angle.acceleration_g ,pre_angle.angular_rate_dps,angle.yawangle,ac_angle);
-  IMU_Update(&angle,pre_angle.acceleration_g[0],pre_angle.acceleration_g[1],pre_angle.acceleration_g[2],
-             pre_angle.angular_rate_dps[0]*PI/180,pre_angle.angular_rate_dps[1]*PI/180,pre_angle.angular_rate_dps[2]*PI/180);    
   
-  float k1 = -sin(angle.yawangle[1]*PI/180)*cos(angle.yawangle[0]*PI/180);
-  float k2 = sin(angle.yawangle[0]*PI/180);
+//  float test[3];
+//  get_angle(pre_angle.acceleration_g,pre_angle.angular_rate_dps,angle.yawangle,test);
+  
+  
+  IMU_Update(&angle,pre_angle.acceleration_g[0],pre_angle.acceleration_g[1],pre_angle.acceleration_g[2],
+             pre_angle.angular_rate_dps[0]*PI/180,pre_angle.angular_rate_dps[1]*PI/180,pre_angle.angular_rate_dps[2]*PI/180);
+  //解算系数
+//  float k1 = -sin(angle.yawangle[1]*PI/180)*cos(angle.yawangle[0]*PI/180);
+//  float k2 = sin(angle.yawangle[0]*PI/180);
+//  float k3 = cos(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
+  
+  float k1 = -sin(angle.yawangle[1]*PI/180);
+  float k2 = sin(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
   float k3 = cos(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
+  
   angle.angular_rate[2] = angle.angular_rate_dps[0] * k1 + angle.angular_rate_dps[1] * k2 + angle.angular_rate_dps[2] * k3;  
-
-  if(angle.angular_rate[2]>0.01||angle.angular_rate[2]<-0.01)  
+  //去零漂
+  
+ // uprintf("%f\r",angle.angular_rate[2]);
+ 
+  if(angle.angular_rate[2]>0.2||angle.angular_rate[2]<-0.5)  
   {
-    float delta_angle = delta_time * angle.angular_rate[2]  ;
+    float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
     angle.delta_yawangle[2] = delta_angle;
-    angle.yawangle[2] += delta_angle; 
+    angle.yawangle[2] += delta_angle;     
+
   }
+  
 }
 
 void Get_Yaw_angle_0()
 {
     
   asm330lhh_run();
-  if(angle.angular_rate_dps[2]>0||angle.angular_rate_dps[2]<-350)
+  if(angle.angular_rate_dps[2]>0.1||angle.angular_rate_dps[2]<-0.35)
   {
-    float delta_angle=delta_time * (angle.angular_rate_dps[2]+210)/1000;    //固定零票
+    float delta_angle=delta_time * (angle.angular_rate_dps[2]+0.238311837 );    //固定零票
 //    float delta_angle=delta_time * (angular_rate_dps[2]-zero_angular_rate[2])/1000;
 //    float delta_angle=delta_time * (angular_rate_dps[2])/1000;//不加零漂
     angle.delta_yawangle[2]=delta_angle;

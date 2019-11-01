@@ -81,8 +81,8 @@ void IMU_Update(Angle* angle,float ax,float ay,float az,float wx,float wy,float 
     q3/=norm;
     
     //Å·À­½Ç×ª»»
-    angle->yawangle[0]= -atan2(2*q2*q3 + 2*q0*q1, -2*q1*q1 - 2*q2*q2+1)* 57.3; 
-    angle->yawangle[1]= -asin(-2*q1*q3 + 2*q0*q2)* 57.3;
+    angle->yawangle[0]= atan2(2*q2*q3 + 2*q0*q1, -2*q1*q1 - 2*q2*q2+1)* 57.3; 
+    angle->yawangle[1]= asin(-2*q1*q3 + 2*q0*q2)* 57.3;
     //angle->yawangle[2]=atan2(2*q1q2 + 2*q0q3, -2*q2q2 - 2*q3q3+1)* 57.3; 
     
 //    if(GY521){

@@ -145,18 +145,18 @@ int main(void)
       //Get_Yaw_angle_0();
       Get_Wheel_x();
       Get_Wheel_y();  
-      
+      send_Angle(12);
       if(flag.test1==1)
         {
-          send_wave(pre_angle.acceleration_g[0]*10,0,pre_angle.acceleration_g[1]*10,pre_angle.acceleration_g[2]*10);  
+          send_wave(pre_angle.acceleration_g[0],0,pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);  
         }
       if(flag.test2==1)
         {
-          send_wave(pre_angle.angular_rate_dps[0]*10,0,pre_angle.angular_rate_dps[1]*10,pre_angle.angular_rate_dps[2]*10);
+          send_wave(pre_angle.angular_rate_dps[0],0,pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2]);
         }
       if(flag.test3==1)
         {
-           send_wave(angle.yawangle[0],0,angle.yawangle[1],angle.yawangle[2]);       
+           send_wave(angle.yawangle[0],0,angle.yawangle[1],angle_toshow(angle.yawangle[2]));       
         }         
       
       if(flag.wave==1)
@@ -179,12 +179,12 @@ int main(void)
         }
       if(flag.test2==2)
         {
-          uprintf("%f      %f      %f\r",
-                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2]); 
+          uprintf("%f      %f      %f                   %f\r",
+                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2],angle.angular_rate[2]); 
         }
       if(flag.test3==2)
         {
-          uprintf("%f      %f      %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]); 
+          uprintf("%f      %f      %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
         }
     }
     if(flag.ones==1)
@@ -193,8 +193,7 @@ int main(void)
                 
       if(flag.readangle==1)
         {
-          uprintf("%f\r",angle_toshow(angle.yawangle[2]));
-          //uprintf("%f         %f       %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
+          uprintf("%f \r",angle_toshow(angle.yawangle[2]));
         }   
       if(flag.readpos==1)
         {
@@ -203,8 +202,7 @@ int main(void)
       if(flag.readcircle==1)
         {
           uprintf("x=%f     y=%f \r",wheel_x.now_circlenum,wheel_y.now_circlenum); 
-        }
-         
+        }        
       
     }
     /* USER CODE END WHILE */
