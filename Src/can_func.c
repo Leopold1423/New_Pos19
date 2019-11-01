@@ -6,7 +6,7 @@
 float vega = 0;
 void vega_msg(can_msg *data) {
     vega = data->fl[0];
-    uprintf("vega %f\r",vega);
+    //uprintf("vega %f\r",vega);
 }
 
 

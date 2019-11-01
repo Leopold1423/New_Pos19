@@ -23,6 +23,12 @@ void cmd_test_func(int argc,char *argv[])
 }
 
 
+void cmd_resetvega_func(int argc, char *argv[]) {
+  can_msg vegatest;
+    can_send_msg(0x09,&vegatest,8);
+    uprintf("vega reset ok");
+}
+
 
 
 
@@ -164,5 +170,7 @@ void cmd_func_init(void) {
     cmd_add("canid", "modify the CANSEN_ID", cmd_modify_CANID_func);
     cmd_add("setpos", "just", cmd_setxy_func);
     cmd_add("showpra", "just", cmd_show_func);
-    cmd_add("test", "just", cmd_test_func);    
+    cmd_add("test", "just", cmd_test_func);  
+    cmd_add("vega", "just", cmd_resetvega_func); 
+    
 }

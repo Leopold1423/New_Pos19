@@ -35,7 +35,7 @@
 #include "flash.h"
 #include "simplelib.h"
 #include "as5047p.h"
-#include "can_utils.h"    
+#include "can_utils.h"   
 #include "read_data_simple.h"
 /* USER CODE END Includes */
 
@@ -86,6 +86,8 @@ void flag_init()
   flag.test3=0;
 }
 
+
+extern float vega;
 /* USER CODE END 0 */
 
 /**
@@ -103,12 +105,14 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
+
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -130,7 +134,9 @@ int main(void)
   //load_prams();
   flag_init();
   asm330lhh_init();
-  wheel_init();  
+  wheel_init(); 
+  can_msg test;
+  can_send_msg(0x09,&test,8);//vega≥ı ºªØ
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -145,7 +151,7 @@ int main(void)
       //Get_Yaw_angle_0();
       Get_Wheel_x();
       Get_Wheel_y();  
-      send_Angle(12);
+      //send_Angle(12);
       if(flag.test1==1)
         {
           send_wave(pre_angle.acceleration_g[0],0,pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);  
@@ -173,14 +179,14 @@ int main(void)
       flag.halfs=0;
        if(flag.test1==2)
         {
-          uprintf("%f      %f      %f\r",
-                 pre_angle.acceleration_g[0],pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);
-            //uprintf("%f\r",angle.angular_rate[2]);
+          uprintf("%f  %f  %f  %f\r",vega,angle_toshow(angle.yawangle[2]),angle_toshow(vega-angle.yawangle[2]),angle.yawangle[2]);
+           
         }
       if(flag.test2==2)
         {
-          uprintf("%f      %f      %f                   %f\r",
-                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2],angle.angular_rate[2]); 
+          uprintf("%f \r",angle.angular_rate[2]);
+//          uprintf("%f      %f      %f                   %f\r",
+//                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2],angle.angular_rate[2]); 
         }
       if(flag.test3==2)
         {

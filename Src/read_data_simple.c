@@ -215,8 +215,17 @@ void Get_Yaw_angle()
   //È¥ÁãÆ¯
   
  // uprintf("%f\r",angle.angular_rate[2]);
+  
+  
+  if(angle.angular_rate[2]>0.05)  
+  {
+    float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
+    angle.delta_yawangle[2] = delta_angle;
+    angle.yawangle[2] += delta_angle;     
+
+  }
  
-  if(angle.angular_rate[2]>0.2||angle.angular_rate[2]<-0.5)  
+  if(angle.angular_rate[2]<-0.4)  
   {
     float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
     angle.delta_yawangle[2] = delta_angle;
