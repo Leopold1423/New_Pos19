@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </JLinkDriver>
     <DebugChecksum>
-        <Checksum>967215551</Checksum>
+        <Checksum>3302190826</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -140,7 +140,8 @@
     </DisassembleMode>
     <Breakpoints2>
         <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c}.1338.7" 0 0 1 "" 0 "" 0</Bp0>
-        <Count>1</Count>
+        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\main.c}.198.7" 0 0 1 "" 0 "" 0</Bp1>
+        <Count>2</Count>
     </Breakpoints2>
     <Aliases>
         <A0>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c" ""</A0>

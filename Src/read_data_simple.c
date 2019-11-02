@@ -220,18 +220,18 @@ void Get_Yaw_angle()
   if(angle.angular_rate[2]>0.05)  
   {
     float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
-    angle.delta_yawangle[2] = delta_angle;
-    angle.yawangle[2] += delta_angle;     
-
+    angle.delta_yawangle[2] = delta_angle ;//*360/358.5;
+    angle.yawangle[2] += delta_angle; 
   }
  
   if(angle.angular_rate[2]<-0.4)  
   {
     float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
-    angle.delta_yawangle[2] = delta_angle;
-    angle.yawangle[2] += delta_angle;     
+    angle.delta_yawangle[2] = delta_angle ;//*360/358.5;
+    angle.yawangle[2] += delta_angle;    
 
   }
+
   
 }
 
