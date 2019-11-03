@@ -22,6 +22,18 @@ void cmd_test_func(int argc,char *argv[])
   }
 }
 
+extern float k_n;
+extern float k_s;
+void change_kn(int argc, char *argv[])
+{
+  k_n = atof(argv[1]);
+  uprintf("k_n:%f\r",k_n);
+}
+void change_ks(int argc, char *argv[])
+{
+  k_s = atof(argv[1]);
+  uprintf("k_s:%f\r",k_s);
+}
 
 void cmd_resetvega_func(int argc, char *argv[]) {
   can_msg vegatest;
@@ -172,5 +184,6 @@ void cmd_func_init(void) {
     cmd_add("showpra", "just", cmd_show_func);
     cmd_add("test", "just", cmd_test_func);  
     cmd_add("vega", "just", cmd_resetvega_func); 
-    
+    cmd_add("kn", "just", change_kn); 
+    cmd_add("ks", "just", change_ks); 
 }

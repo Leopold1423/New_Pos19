@@ -12,7 +12,7 @@ void vega_msg(can_msg *data) {
     vega = data->fl[0];
     vega_speed=last_vega-vega;
 //    ch++;
-//    if(ch==20)
+//    if(ch==10)
 //    {
 //      ch=0;
 //      if(angle.delta_yawangle[2]!=0)

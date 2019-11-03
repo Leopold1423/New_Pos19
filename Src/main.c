@@ -179,18 +179,19 @@ int main(void)
       flag.halfs=0;
        if(flag.test1==2)
         {
-          uprintf("%f  %f  %f  %f\r",vega,angle_toshow(angle.yawangle[2]),angle_toshow(vega-angle.yawangle[2]),angle.yawangle[2]);
+          uprintf("%f  %f  %f  %f\r",vega,angle_toshow(angle.yawangle[2]),angle_toshow(vega-angle_toshow(angle.yawangle[2])),angle.yawangle[2]);
            
         }
       if(flag.test2==2)
         {
-          uprintf("%f \r",angle.angular_rate[2]);
+          if(pre_angle.angular_rate_dps[2]!=0)
+          uprintf("%f %f %f\r",angle.angular_rate[2],pre_angle.angular_rate_dps[2],angle.angular_rate[2]/pre_angle.angular_rate_dps[2]);
 //          uprintf("%f      %f      %f                   %f\r",
 //                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2],angle.angular_rate[2]); 
         }
       if(flag.test3==2)
         {
-          uprintf("%f      %f      %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
+          uprintf("%f  %f %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
         }
     }
     if(flag.ones==1)

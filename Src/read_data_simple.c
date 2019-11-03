@@ -176,6 +176,8 @@ void asm330lhh_init()
 //角速度积分计算角度
 float delta_time=0.005;
 Angle pre_angle;
+float k_n=0;
+float k_s=0;
 void Get_Yaw_angle()
 {
   asm330lhh_run();
@@ -211,7 +213,8 @@ void Get_Yaw_angle()
   float k2 = sin(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
   float k3 = cos(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
   
-  angle.angular_rate[2] = angle.angular_rate_dps[0] * k1 + angle.angular_rate_dps[1] * k2 + angle.angular_rate_dps[2] * k3;  
+  //angle.angular_rate[2] = angle.angular_rate_dps[0] * k1 + angle.angular_rate_dps[1] * k2 + angle.angular_rate_dps[2] * k3;  
+  angle.angular_rate[2] = pre_angle.angular_rate_dps[0] * k1 + pre_angle.angular_rate_dps[1] * k2 + pre_angle.angular_rate_dps[2] * k3;  
   //去零漂
   
  // uprintf("%f\r",angle.angular_rate[2]);
@@ -220,16 +223,17 @@ void Get_Yaw_angle()
   if(angle.angular_rate[2]>0.05)  
   {
     float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
-    angle.delta_yawangle[2] = delta_angle ;//*360/358.5;
-    angle.yawangle[2] += delta_angle; 
+    angle.delta_yawangle[2] = delta_angle *(1+ k_n);//*360/358.5;
+    pre_angle.yawangle[2] += delta_angle;
+    angle.yawangle[2] = 0.9986 * pre_angle.yawangle[2] + 0.2921;
   }
  
   if(angle.angular_rate[2]<-0.4)  
   {
     float delta_angle = delta_time * (angle.angular_rate[2]+0.35);
-    angle.delta_yawangle[2] = delta_angle ;//*360/358.5;
-    angle.yawangle[2] += delta_angle;    
-
+    angle.delta_yawangle[2] = delta_angle *(1+ k_s);//*360/358.5;
+    pre_angle.yawangle[2] += delta_angle;
+    angle.yawangle[2] = 1.0134 * pre_angle.yawangle[2] - 0.605;
   }
 
   
