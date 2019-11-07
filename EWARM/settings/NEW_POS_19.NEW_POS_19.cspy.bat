@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"G:\SOFTWARE\IAR\common\bin\cspybat" -f "E:\ROBOCON------VALLUE\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.general.xcl" --backend -f "E:\ROBOCON------VALLUE\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.driver.xcl" 
+"G:\SOFTWARE\IAR\common\bin\cspybat" -f "E:\Robocon_Value\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.general.xcl" --backend -f "E:\Robocon_Value\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"G:\SOFTWARE\IAR\common\bin\cspybat" -f "E:\ROBOCON------VALLUE\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.general.xcl" "--debug_file=%~1" --backend -f "E:\ROBOCON------VALLUE\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.driver.xcl" 
+"G:\SOFTWARE\IAR\common\bin\cspybat" -f "E:\Robocon_Value\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.general.xcl" "--debug_file=%~1" --backend -f "E:\Robocon_Value\NEW_POS_19\EWARM\settings\NEW_POS_19.NEW_POS_19.driver.xcl" 
 
 @echo off 
 :end
