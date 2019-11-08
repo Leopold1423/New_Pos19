@@ -65,10 +65,10 @@ void load_prams()
   
   for(i=0;i<pram_num;++i){
     flash_data[i]=*((float *)(FLASH_Start+i*4));
-    uprintf("flash_data[%d]=%lf\r\n",i,flash_data[i]);
+    //uprintf("flash_data[%d]=%lf\r\n",i,flash_data[i]);
     if(isnan(flash_data[i])) flash_data[i] = 0;
   }	
-  uprintf("\r\n");
+  uprintf("flash init done\r\n");
 //  kx_center=flash_data[0];
 //  ky_center=flash_data[1];
 //  X_diameter=flash_data[2];

@@ -129,13 +129,12 @@ int main(void)
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   simplelib_init(&huart2, &hcan1);  
-  uprintf("hello\r\n");
+  
   //load_prams();
   flag_init();
   asm330lhh_init();
-  wheel_init(); 
-  can_msg test;
-  can_send_msg(0x09,&test,8);//vega≥ı ºªØ
+  as5047p_init(); 
+  uprintf("I'm Ready!\r\n");
   /* USER CODE END 2 */
   
   /* Infinite loop */
@@ -147,14 +146,12 @@ int main(void)
     {    
       flag.fivems=0;
       Get_Yaw_angle();
-      //Get_Yaw_angle_0();
       Get_Wheel_x();
       Get_Wheel_y();  
-      //send_Angle(12);
-      if(flag.test1==1)
-      {
-        send_wave(pre_angle.acceleration_g[0],0,pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);  
-      }
+//      if(flag.test1==1)
+//      {
+//        send_wave(pre_angle.acceleration_g[0],0,pre_angle.acceleration_g[1],pre_angle.acceleration_g[2]);  
+//      }
       if(flag.test2==1)
       {
         send_wave(pre_angle.angular_rate_dps[0],0,pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2]);
@@ -184,14 +181,10 @@ int main(void)
       if(flag.test2==2)
       {
         uprintf("%f\r",angle.yawangle[2]);
-//        if(pre_angle.angular_rate_dps[2]!=0)
-//          uprintf("%f %f %f\r",angle.angular_rate[2],pre_angle.angular_rate_dps[2],angle.angular_rate[2]/pre_angle.angular_rate_dps[2]);
-        //          uprintf("%f      %f      %f                   %f\r",
-        //                  pre_angle.angular_rate_dps[0],pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2],angle.angular_rate[2]); 
       }
       if(flag.test3==2)
       {
-        uprintf("%f  %f %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
+        uprintf("%f %f %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
       }
     }
     if(flag.ones==1)

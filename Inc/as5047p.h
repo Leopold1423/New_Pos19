@@ -28,7 +28,7 @@ void Get_Basic_x();
 void Get_Basic_y();
 
 //Íâ²¿º¯Êý
-void wheel_init();
+void as5047p_init();
 void Get_Wheel_x();
 void Get_Wheel_y();
 void Show_Wheel_x();

@@ -26,7 +26,7 @@ uint16_t as5047p_Get_Position_y()
     return position;
 }
 
-void wheel_init()
+void as5047p_init()
 {
   memset(&wheel_x,0,sizeof(Wheel));
   memset(&wheel_y,0,sizeof(Wheel));
@@ -38,6 +38,8 @@ void wheel_init()
   wheel_y.zero_position = as5047p_Get_Position_y()*360/16384; 
   wheel_y.last_position = wheel_y.zero_position;
   wheel_y.now_position = wheel_y.zero_position;
+  
+  uprintf("as5047p init done\r\n");
 }
 
 void Get_Basic_x()

@@ -5,6 +5,7 @@
 #include "calculate.h"
 #include "flash.h"
 #include "as5047p.h"
+#include "read_data_simple.h"
 
 //test
 void cmd_test_func(int argc,char *argv[])
@@ -18,37 +19,31 @@ void cmd_test_func(int argc,char *argv[])
   case 4:flag.test1 = 2;flag.test2 = 0;flag.test3 = 0;uprintf("test4 OK\r\n");break;
   case 5:flag.test2 = 2;flag.test1 = 0;flag.test3 = 0;uprintf("test5 OK\r\n");break;
   case 6:flag.test3 = 2;flag.test1 = 0;flag.test2 = 0;uprintf("test6 OK\r\n");break;
+  case 7:flag.test1 = 3;flag.test2 = 0;flag.test3 = 0;uprintf("test7 OK\r\n");break;
+  case 8:flag.test2 = 3;flag.test1 = 0;flag.test3 = 0;uprintf("test8 OK\r\n");break;
+  case 9:flag.test3 = 3;flag.test1 = 0;flag.test2 = 0;uprintf("test9 OK\r\n");break;
   default :flag.test1 = 0;flag.test2 = 0;flag.test3 = 0;uprintf("test stopped\r\n");
   }
 }
-
-extern float k_n;
-extern float k_s;
+//kn
 void change_kn(int argc, char *argv[])
 {
   k_n = atof(argv[1]);
   uprintf("k_n:%f\r",k_n);
 }
+//ks
 void change_ks(int argc, char *argv[])
 {
   k_s = atof(argv[1]);
   uprintf("k_s:%f\r",k_s);
 }
-
+//vega
 void cmd_resetvega_func(int argc, char *argv[]) {
   can_msg vegatest;
     can_send_msg(0x09,&vegatest,8);
     uprintf("vega reset ok");
 }
-
-
-
-
-void cmd_can_test(int argc, char *argv[]) {
-    uprintf("\r\ncan send test\r\n");
-    can_send_test();
-}
- //hello
+//hello
 void cmd_hello_func(int argc,char *argv[]) 
 {
   uprintf("\r\nHELLO!\r\n");
@@ -166,10 +161,9 @@ void cmd_show_func(int argc,char *argv[])
   uprintf("Wheel_Diameter : %f   %f   \r\n",diameter_x,diameter_y);
   uprintf("CANSEN_ID : 0x%x   \r\n", CANSEND_ID);
 }
-//    all in one 
+// all in one 
 void cmd_func_init(void) {
     cmd_add("hello", "hello", cmd_hello_func);
-    cmd_add("can_test", "test can", cmd_can_test);
     cmd_add("version", "current version", cmd_version_func);
     cmd_add("reset", "reset system", cmd_reset_func);
     cmd_add("default", "get parameters back to default", cmd_default_func);

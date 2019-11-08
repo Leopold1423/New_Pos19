@@ -30,8 +30,8 @@ void IMU_Update(Angle* angle,float ax,float ay,float az,float wx,float wy,float 
     float q2q2 = q2 * q2;
     float q2q3 = q2 * q3;
     float q3q3 = q3 * q3;
-    float q1q2=q1*q2;
-    float q0q3=q0*q3;
+//    float q1q2=q1*q2;
+//    float q0q3=q0*q3;
     float ex,ey,ez;
     float exInt = 0 ,eyInt = 0 ,ezInt = 0;
     norm=sqrt(ax*ax+ay*ay+az*az);

@@ -19,6 +19,9 @@ typedef struct Angle
 }Angle;
 extern Angle angle;
 extern Angle pre_angle;
+extern float k_n;
+extern float k_s;
+extern float w_zero;
 
 void asm330lhh_device_init();
 void asm330lhh_init();
