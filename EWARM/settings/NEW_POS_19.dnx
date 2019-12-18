@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </JLinkDriver>
     <DebugChecksum>
-        <Checksum>4283699714</Checksum>
+        <Checksum>2820373655</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -26,8 +26,8 @@
         <Enabled>_ 0</Enabled>
     </CodeCoverage>
     <Disassembly>
-        <InstrCount>0</InstrCount>
         <MixedMode>1</MixedMode>
+        <InstrCount>0</InstrCount>
     </Disassembly>
     <CallStack>
         <ShowArgs>0</ShowArgs>
@@ -108,13 +108,6 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c}.1338.7" 0 0 1 "" 0 "" 0</Bp0>
-        <Count>1</Count>
-    </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -124,18 +117,6 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <Aliases>
-        <A0>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c" ""</A0>
-        <A1>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c" ""</A1>
-        <A2>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Src\main.c" ""</A2>
-        <A3>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" ""</A3>
-        <A4>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\cmd.c" ""</A4>
-        <A5>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\main.c" ""</A5>
-        <A6>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\simplelib.c" ""</A6>
-        <A7>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\tim.c" ""</A7>
-        <Count>8</Count>
-        <SuppressDialog>1</SuppressDialog>
-    </Aliases>
     <DriverProfiling>
         <Enabled>0</Enabled>
         <Mode>1</Mode>
@@ -154,4 +135,23 @@
         <Probe0>I0</Probe0>
         <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
     </PowerProbe>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\can_utils.c}.69.5" 0 0 1 "" 0 "" 0</Bp0>
+        <Count>1</Count>
+    </Breakpoints2>
+    <Aliases>
+        <A0>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c" ""</A0>
+        <A1>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c" ""</A1>
+        <A2>_ "C:\Users\DELL\Desktop\陀螺仪硬件spi\NEW_POS_19\Src\main.c" ""</A2>
+        <A3>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" ""</A3>
+        <A4>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\cmd.c" ""</A4>
+        <A5>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\main.c" ""</A5>
+        <A6>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\simplelib.c" ""</A6>
+        <A7>_ "E:\ROBOCON------VALLUE\NEW_POS_19\Src\tim.c" ""</A7>
+        <Count>8</Count>
+        <SuppressDialog>1</SuppressDialog>
+    </Aliases>
 </settings>
