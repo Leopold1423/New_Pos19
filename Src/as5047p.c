@@ -1,10 +1,10 @@
-
 #include "string.h"
 #include "as5047p.h"
 #include "imitate_spi.h"
 #include "cmd.h"
-Wheel wheel_x,wheel_y;
-float diameter_x=1,diameter_y=1;
+AS5047P wheel_x,wheel_y;
+//TODO： 两轮直径待修改
+float diameter_x=52.5,diameter_y=52.5;
 
 uint16_t as5047p_Get_Position_x()
 {
@@ -15,7 +15,6 @@ uint16_t as5047p_Get_Position_x()
     uint16_t position=(uint16_t)((readBuffer[0]&0x3f)*256+readBuffer[1]);
     return position;
 }
-
 uint16_t as5047p_Get_Position_y()
 {
     uint8_t readBuffer[2]={1,1};
@@ -25,11 +24,10 @@ uint16_t as5047p_Get_Position_y()
     uint16_t position=(uint16_t)((readBuffer[0]&0x3f)*256+readBuffer[1]);
     return position;
 }
-
 void as5047p_init()
 {
-  memset(&wheel_x,0,sizeof(Wheel));
-  memset(&wheel_y,0,sizeof(Wheel));
+  memset(&wheel_x,0,sizeof(AS5047P));
+  memset(&wheel_y,0,sizeof(AS5047P));
  
   wheel_x.zero_position = as5047p_Get_Position_x()*360/16384; 
   wheel_x.last_position = wheel_x.zero_position;
@@ -38,7 +36,7 @@ void as5047p_init()
   wheel_y.zero_position = as5047p_Get_Position_y()*360/16384; 
   wheel_y.last_position = wheel_y.zero_position;
   wheel_y.now_position = wheel_y.zero_position;
-  
+
   uprintf("as5047p init done\r\n");
 }
 
@@ -46,7 +44,7 @@ void Get_Basic_x()
 {
   //now_position 
   wheel_x.now_position = (float)as5047p_Get_Position_x()*360/16384; 
-  //now_speed 赋值
+  //now_speed 
   wheel_x.now_speed = wheel_x.now_position - wheel_x.last_position;  
   while(wheel_x.now_speed > 180)
     wheel_x.now_speed-=360;
@@ -77,7 +75,7 @@ void Get_Basic_y()
 {
   //now_position 
   wheel_y.now_position = (float)as5047p_Get_Position_y()*360/16384; 
-  //now_speed 赋值
+  //now_speed 
   wheel_y.now_speed = wheel_y.now_position - wheel_y.last_position;  
   while(wheel_y.now_speed > 180)
     wheel_y.now_speed-=360;

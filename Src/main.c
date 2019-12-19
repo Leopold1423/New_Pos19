@@ -34,7 +34,6 @@
 #include "flash.h"
 #include "can_utils.h"
 #include "can_func.h"
-
 #include "calculate.h"
 #include "as5047p.h"
 #include "read_data_simple.h"
@@ -73,7 +72,6 @@ void SystemClock_Config(void);
 Flag flag;
 static uint32_t time_ms = 0;
 
-extern float vega;
 /* USER CODE END 0 */
 
 /**
@@ -131,6 +129,7 @@ int main(void)
   {    
     simplelib_run();
     flag_task();
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -186,9 +185,6 @@ void flag_init(){
   flag.fiftyms=0;
   flag.halfs=0;
   flag.ones=0;
-  flag.readpos=0;
-  flag.readcircle=0;
-  flag.readangle=0;
   flag.wave=0; 
   flag.test1=0;
   flag.test2=0;
@@ -212,7 +208,7 @@ void flag_inc(void){
   {
     flag.ones = 1;
   }
-  if(time_ms>=64000)
+  if(time_ms>=60000)
   {
     time_ms=0;
   }
@@ -220,47 +216,22 @@ void flag_inc(void){
 void flag_task(){
   if(flag.fivems == 1){    
     flag.fivems=0;
-    send_to_nrf();
     Get_Yaw_angle();
     Get_Wheel_x();
     Get_Wheel_y(); 
+    calcul_XY();
     if(flag.wave==1){
       send_wave(position.world_x,0,position.world_y,position.world_yaw);       
-    }       
-    if(flag.test2==1){
-      send_wave(pre_angle.angular_rate_dps[0],0,pre_angle.angular_rate_dps[1],pre_angle.angular_rate_dps[2]);
-    }
-    if(flag.test3==1){
-      send_wave(angle.yawangle[0],0,angle.yawangle[1],angle_toshow(angle.yawangle[2]));       
-    }                
+    }                    
   }
   if(flag.fiftyms==1){
     flag.fiftyms=0;  
   }
   if(flag.halfs==1){
     flag.halfs=0;
-    if(flag.test1==2){
-      uprintf("%f  %f  %f  %f\r",vega,angle_toshow(angle.yawangle[2]),
-              angle_toshow(vega-angle_toshow(angle.yawangle[2])),angle.yawangle[2]);        
-    }
-    if(flag.test2==2){
-      uprintf("%f\r",angle.yawangle[2]);
-    }
-    if(flag.test3==2){
-      uprintf("%f %f %f\r",angle.yawangle[0],angle.yawangle[1],angle.yawangle[2]);
-    }
   }
   if(flag.ones==1){    
-    flag.ones=0;      
-    if(flag.readangle==1){
-      uprintf("%f\r",angle_toshow(angle.yawangle[2]));
-    }   
-    if(flag.readcircle==1){
-      uprintf("x=%5f y=%5f\r",wheel_x.now_circlenum,wheel_y.now_circlenum); 
-    }        
-    if(flag.readpos==1){
-      uprintf("x=%5f y=%5f angle=%5f\r",position.world_x,position.world_y,position.world_yaw);
-    }
+    flag.ones=0;    
   }
 }
 /* USER CODE END 4 */

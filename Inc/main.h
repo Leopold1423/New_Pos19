@@ -45,9 +45,6 @@ typedef struct Flag
   int halfs;
   int ones;
   int wave;
-  int readpos;
-  int readcircle;
-  int readangle;
   int test1;
   int test2;
   int test3;

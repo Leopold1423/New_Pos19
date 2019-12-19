@@ -7,7 +7,7 @@
 
 #define AS5047PMAXPOS 16384      //0x3fff
    
-typedef struct Wheel
+typedef struct AS5047P
 {
   float zero_position;   //上电位置
   float now_position;    //当前位置
@@ -20,7 +20,7 @@ typedef struct Wheel
   int last_circlenum;
   float delta_distance;       //wheel移动距离
   float full_distance;       //wheel移动距离
-}Wheel;  
+}AS5047P;  
 
 uint16_t as5047p_Get_Position_x();
 uint16_t as5047p_Get_Position_y();
@@ -34,8 +34,8 @@ void Get_Wheel_y();
 void Show_Wheel_x();
 void Show_Wheel_y();
 //外部变量
-extern Wheel wheel_x;
-extern Wheel wheel_y;
+extern AS5047P wheel_x;
+extern AS5047P wheel_y;
 extern float diameter_x;
 extern float diameter_y;
    

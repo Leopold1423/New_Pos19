@@ -184,7 +184,6 @@ void Get_Yaw_angle()
 {
   if(num<100)
     num++;
-  //TODO 误差的检验点：1.卡尔曼是都取均值 2.两个四元数哪个更准确 3.解算系数检验一遍 4.角速度合成使用滤波前的数据或滤波后的数据
   asm330lhh_run();
   //对pre_angle赋值  
   pre_angle.acceleration_g[0]= angle.acceleration_g[0];
@@ -197,11 +196,7 @@ void Get_Yaw_angle()
   kalman_all(&pre_angle);
   IMU_Update(&angle,pre_angle.acceleration_g[0],pre_angle.acceleration_g[1],pre_angle.acceleration_g[2],
              pre_angle.angular_rate_dps[0]*PI/180,pre_angle.angular_rate_dps[1]*PI/180,pre_angle.angular_rate_dps[2]*PI/180);
-  //解算系数
-  //  float k1 = -sin(angle.yawangle[1]*PI/180)*cos(angle.yawangle[0]*PI/180);
-  //  float k2 = sin(angle.yawangle[0]*PI/180);
-  //  float k3 = cos(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
-  
+  //解算系数  
   float k1 = -sin(angle.yawangle[1]*PI/180);
   float k2 = sin(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);
   float k3 = cos(angle.yawangle[0]*PI/180)*cos(angle.yawangle[1]*PI/180);

@@ -6,6 +6,63 @@
 #include "flash.h"
 #include "as5047p.h"
 #include "read_data_simple.h"
+#include "calculate.h"
+
+
+
+//hello
+void cmd_hello_func(int argc,char *argv[]){
+  uprintf("HELLO!\r\n");
+}
+//vesion
+void cmd_version_func(int argc,char *argv[]){
+  uprintf("VESION 1.0 !\r\n");
+}
+//reset  
+void cmd_reset_func(int argc,char *argv[]){
+  __set_FAULTMASK(1);   //STM32程序�?件�?�位  
+  NVIC_SystemReset(); 
+}
+void cmd_reset_vega_func(int argc, char *argv[]){
+  can_msg vegatest;
+  can_send_msg(0x09,&vegatest,8);
+  uprintf("vega reset ok");
+}
+//read
+void cmd_read_pos_func(int argc,char *argv[]){
+  uprintf("POS:\r\nx---%6fy---%6fangle---%6f\r\n",position.world_x,position.world_y,position.world_yaw); 
+}
+void cmd_read_circle_func(int argc,char *argv[]){
+  float x_circle = wheel_x.now_circlenum + wheel_x.now_circlenum/360;
+  float y_circle = wheel_y.now_circlenum + wheel_y.now_circlenum/360;
+  uprintf("Circle:\r\nx---%6fy---%6f\r\n",x_circle,y_circle);
+}
+void cmd_wave_func(int argc,char *argv[]){
+  if(atoi(argv[1])==1){
+    uprintf("\r\nwave OK\r\n");
+    flag.wave =1;
+  }
+  else{
+    uprintf("\r\nwave Stoped\r\n");
+    flag.wave =0;
+  }  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //test
 void cmd_test_func(int argc,char *argv[])
@@ -25,6 +82,14 @@ void cmd_test_func(int argc,char *argv[])
   default :flag.test1 = 0;flag.test2 = 0;flag.test3 = 0;uprintf("test stopped\r\n");
   }
 }
+
+
+
+
+
+
+
+
 //kn
 void change_kn(int argc, char *argv[])
 {
@@ -37,28 +102,9 @@ void change_ks(int argc, char *argv[])
   k_s = atof(argv[1]);
   uprintf("k_s:%f\r",k_s);
 }
-//vega
-void cmd_resetvega_func(int argc, char *argv[]) {
-  can_msg vegatest;
-    can_send_msg(0x09,&vegatest,8);
-    uprintf("vega reset ok");
-}
-//hello
-void cmd_hello_func(int argc,char *argv[]) 
-{
-  uprintf("\r\nHELLO!\r\n");
-}
-//vesion
-void cmd_version_func(int argc,char *argv[])  
-{
-  uprintf("\r\nVESION 1.0 !\r\n");
-}
-//reset  
-void cmd_reset_func(int argc,char *argv[])                
-{
-  __set_FAULTMASK(1);   //STM32程序软件复位  
-  NVIC_SystemReset(); 
-}
+
+
+
 //default
 void cmd_default_func(int argc,char *argv[])                 
 {
@@ -77,47 +123,7 @@ void cmd_default_func(int argc,char *argv[])
     uprintf("Wheel_Diameter : X_diameter =%f   y_diameter =%f   \r\n",diameter_x,diameter_y);
     uprintf("CANSEN_ID : 0x%x   \r\n", CANSEND_ID);
 }
-//readpos
-void cmd_readpos_func(int argc,char *argv[])
-{
-  flag.readpos = atoi(argv[1]);
-  if(flag.readpos == 1)
-    uprintf("readpos OK\r\n");
-  else 
-    uprintf("readpos Stoped\r\n");
-}
-//readcircle
-void cmd_readcircle_func(int argc,char *argv[])
-{
-  flag.readcircle = atoi(argv[1]);
-  if(flag.readcircle == 1)
-    uprintf("readcircle OK\r\n");
-  else 
-    uprintf("readcircle Stoped\r\n");
-}
-//readangle
-void cmd_readangle_func(int argc,char *argv[])
-{
-  flag.readangle = atoi(argv[1]);
-  if(flag.readangle == 1)
-    uprintf("readangle OK\r\n");
-  else 
-    uprintf("readangle Stoped\r\n");
-}
-//wave
-void cmd_send_wave_func(int argc,char *argv[])    
-{
-  if(atoi(argv[1])==1)
-  {
-    uprintf("\r\nwave OK\r\n");
-    flag.wave =1;
-  }
-  else
-  {
-    uprintf("\r\nwave Stoped\r\n");
-    flag.wave =0;
-  }  
-}
+
 //center
 void cmd_modify_C_func(int argc,char *argv[])
 {
@@ -163,21 +169,26 @@ void cmd_show_func(int argc,char *argv[])
 }
 // all in one 
 void cmd_func_init(void) {
+  
     cmd_add("hello", "hello", cmd_hello_func);
     cmd_add("version", "current version", cmd_version_func);
     cmd_add("reset", "reset system", cmd_reset_func);
+    cmd_add("reset_vega", "just", cmd_reset_vega_func); 
+
+    cmd_add("readpos", "read 1 to start read position", cmd_read_pos_func);
+    cmd_add("readcircle", "read 1 to start read circle", cmd_read_circle_func);
+    cmd_add("wave", "show wave", cmd_wave_func);
+
+
     cmd_add("default", "get parameters back to default", cmd_default_func);
-    cmd_add("readpos", "read 1 to start read position", cmd_readpos_func);
-    cmd_add("readcircle", "read 1 to start read circle", cmd_readcircle_func);
-    cmd_add("readangle", "read 1 to start read angle", cmd_readangle_func);
-    cmd_add("wave", "show wave", cmd_send_wave_func);
+
     cmd_add("center", "modify the center position", cmd_modify_C_func);
     cmd_add("diameter", "modify the wheel diameter", cmd_modify_D_func);
     cmd_add("canid", "modify the CANSEN_ID", cmd_modify_CANID_func);
     cmd_add("setpos", "just", cmd_setxy_func);
     cmd_add("showpra", "just", cmd_show_func);
     cmd_add("test", "just", cmd_test_func);  
-    cmd_add("vega", "just", cmd_resetvega_func); 
+
     cmd_add("kn", "just", change_kn); 
     cmd_add("ks", "just", change_ks); 
 }
