@@ -150,24 +150,6 @@ void asm330lhh_run(void)
 void asm330lhh_init()
 {
   asm330lhh_device_init();  
-  //  不使用减去零漂的方法
-  //  for(int i=0;i<100;i++)              
-  //  {
-  //    asm330lhh_run();
-  //    angle.zero_angular_rate_dps[0]+=angle.angular_rate_dps[0];
-  //    angle.zero_angular_rate_dps[1]+=angle.angular_rate_dps[1];
-  //    angle.zero_angular_rate_dps[2]+=angle.angular_rate_dps[2];
-  //    angle.zero_acceleration_g[0]+=angle.acceleration_g[0];
-  //    angle.zero_acceleration_g[1]+=angle.acceleration_g[1];
-  //    angle.zero_acceleration_g[2]+=angle.acceleration_g[2];
-  //  }
-  //  
-  //  angle.zero_angular_rate_dps[0]/=100;
-  //  angle.zero_angular_rate_dps[1]/=100;
-  //  angle.zero_angular_rate_dps[2]/=100;
-  //  angle.zero_acceleration_g[0]/=100;
-  //  angle.zero_acceleration_g[1]/=100;
-  //  angle.zero_acceleration_g[2]/=100;
   for(int c=0;c<1000;c++)             //TODO 不延时会有bug
   {
     Delay(2000);      //2Mhz时钟delay 0.5us   2000为1ms
@@ -206,10 +188,10 @@ void Get_Yaw_angle()
     pre_angle.angular_rate[2] = pre_angle.angular_rate_dps[0] * k1 + pre_angle.angular_rate_dps[1] * k2 + pre_angle.angular_rate_dps[2] * k3;  
     angle.angular_rate[2] = pre_angle.angular_rate[2] - w_zero  ;
     
-    if(flag.test1==1)                    //零漂采集得w_zreo
-    {
-      uprintf("%f\r\n",pre_angle.angular_rate[2]);
-    }
+    // if(flag.test1==1)                    //零漂采集得w_zreo
+    // {
+    //   uprintf("%f\r\n",pre_angle.angular_rate[2]);
+    // }
   }
   
   

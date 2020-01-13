@@ -89,14 +89,12 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
   /* USER CODE BEGIN Init */
   
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
-
   /* USER CODE BEGIN SysInit */
   
   /* USER CODE END SysInit */
@@ -119,7 +117,7 @@ int main(void)
   flag_init();
   asm330lhh_init();
   as5047p_init(); 
-  uprintf("Init Done!\r\n");
+  uprintf("Init finish!\r\n");
   
   /* USER CODE END 2 */
 
@@ -128,15 +126,12 @@ int main(void)
   while (1)
   {    
     simplelib_run();
-    flag_task();
-    
+    flag_task();    
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -178,60 +173,52 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
 /* USER CODE BEGIN 4 */
 void flag_init(){
-  flag.fivems=0;
-  flag.fiftyms=0;
-  flag.halfs=0;
-  flag.ones=0;
+  
+  flag._5ms=0;
+  flag._50ms=0;
+  flag._500ms=0;
+  flag._1s=0;
   flag.wave=0; 
-  flag.test1=0;
-  flag.test2=0;
-  flag.test3=0;
 }
 void flag_inc(void){  
   time_ms++; 
-  if (time_ms%5 == 0) 
-  {
-    flag.fivems = 1;
+  if (time_ms%5 == 0){
+    flag._5ms = 1;
   }
-  if (time_ms%500 == 0) 
-  {
-    flag.halfs = 1;
+  if (time_ms%50 == 0){
+    flag._50ms = 1;
   }
-  if (time_ms%50 == 0) 
-  {
-    flag.fiftyms = 1;
+  if (time_ms%500 == 0){
+    flag._500ms = 1;
   }
-  if (time_ms%1000 == 0) 
-  {
-    flag.ones = 1;
+  if (time_ms%1000 == 0){
+    flag._1s = 1;
   }
-  if(time_ms>=60000)
-  {
+  if(time_ms>=60000){
     time_ms=0;
   }
 }
 void flag_task(){
-  if(flag.fivems == 1){    
-    flag.fivems=0;
+  if(flag._5ms == 1){    
+    flag._5ms=0;
     Get_Yaw_angle();
     Get_Wheel_x();
     Get_Wheel_y(); 
     calcul_XY();
     if(flag.wave==1){
       send_wave(position.world_x,0,position.world_y,position.world_yaw);       
-    }                    
+    }                  
   }
-  if(flag.fiftyms==1){
-    flag.fiftyms=0;  
+  if(flag._50ms==1){
+    flag._50ms=0;  
   }
-  if(flag.halfs==1){
-    flag.halfs=0;
+  if(flag._500ms==1){
+    flag._500ms=0;
   }
-  if(flag.ones==1){    
-    flag.ones=0;    
+  if(flag._1s==1){    
+    flag._1s=0;    
   }
 }
 /* USER CODE END 4 */

@@ -33,6 +33,7 @@ void Get_Wheel_x();
 void Get_Wheel_y();
 void Show_Wheel_x();
 void Show_Wheel_y();
+float limit_in_180(float value);
 //外部变量
 extern AS5047P wheel_x;
 extern AS5047P wheel_y;

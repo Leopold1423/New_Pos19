@@ -9,18 +9,20 @@ void can_suc_rx(can_msg *data) {
 
 
 /**************************½ÓÊÕº¯Êý********************/
-float vega_angle = 0;
-float vega_x = 0;
-float vega_y = 0;
+float vega[3];
 #define VEGA_ANGLE_ID 11
-#define VEGA_XY_ID    12
+#define VEGA_XY_ID    22
 void can_vega_angle(can_msg *data){
-  vega_angle = data->fl[0]; 
+  vega[2] = data->fl[0]; 
 }
 void can_vega_xy(can_msg *data){
-  vega_x = data->fl[0]; 
-  vega_y = data->fl[0]; 
+  vega[0] = data->fl[0]*1000; 
+  vega[1] = data->fl[1]*1000; 
 }
+void vega_print_pos(){
+  uprintf("VEGA:\r\nx:%6fy:%6fangle:%6f\r\n",vega[0],vega[1],vega[2]);
+}
+
 
 
 void can_func_init() {

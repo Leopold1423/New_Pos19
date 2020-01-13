@@ -6,6 +6,9 @@
 #include "stm32f4xx_hal.h"
 #include "math.h"
 
+  extern  float partx[2];
+  extern  float party[2];
+
 
 #define PI 3.1415926535
 typedef struct  Position

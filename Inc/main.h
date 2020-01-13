@@ -40,16 +40,15 @@ extern "C" {
 /* USER CODE BEGIN ET */
 typedef struct Flag
 {
-  int fivems;
-  int fiftyms;
-  int halfs;
-  int ones;
+  int _5ms;
+  int _50ms;
+  int _500ms;
+  int _1s;
   int wave;
-  int test1;
-  int test2;
-  int test3;
 }Flag;   
 extern Flag flag;
+
+
 
 /* USER CODE END ET */
 

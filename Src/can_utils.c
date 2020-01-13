@@ -6,9 +6,9 @@
  * Version:			0.1
  * Data:			2019/09/23 Mon 13:59
  *******************************************************************************/
-// TODO: ZeroVoid	due:9/26	错误处理
-// TODO: ZeroVoid	due:10/2	动态配置
-// TODO: ZeroVoid	due:10/7	优化多中断管理
+// TODO: ZeroVoid	due:9/26	错�??处理
+// TODO: ZeroVoid	due:10/2	动态配�?
+// TODO: ZeroVoid	due:10/7	优化多中�?管理
 
 #include "can_utils.h"
 #include "hash.h"
@@ -47,7 +47,7 @@ void can_init(CAN_HandleTypeDef *hcan) {
 /**
  * @brief	添加CAN回调函数
  * @param	id          触发回调的can id 
- * @param   callback    回调函数指针 data: can接收到数据联合体
+ * @param   callback    回调函数指针 data: can接收到数�?联合�?
  * @return	None
  */
 void can_callback_add(const uint32_t id, void (*callback)(can_msg *data)) {
@@ -78,12 +78,12 @@ void can_send_test(void) {
     HAL_CAN_AddTxMessage(&HCAN, &TxHeader, can_tx_data.ui8, &TxMailbox);
 }
 
-/* @Brief can 发送数据
+/* @Brief can 发送数�?
  * @param	id: 发送数据id
- *          msg: can数据封装结构体
+ *          msg: can数据封�?�结构体
  *          len: 数据长度
- * @return	0: 正常发送
- *          1: 发送失败
+ * @return	0: 正常发�?
+ *          1: 发送失�?
  */
 int can_send_msg(uint16_t std_id, can_msg *msg,uint32_t len) {
   TxHeader.StdId = std_id;
@@ -106,8 +106,8 @@ void CAN_config(CAN_HandleTypeDef *hcan) {
     CAN_FilterTypeDef sFilterConfig;
 
     /* Configure the CAN Filter 
-     bxCAN提供28个位宽可变/可配置的标识符过滤器组
-     通过设置CAN_FMR的FBMx位 设置过滤器类型 0: mask mode; 1: list mode
+     bxCAN提供28�?位�?�可�?/�?配置的标识�?�过滤器�?
+     通过设置CAN_FMR的FBMx�? 设置过滤器类�? 0: mask mode; 1: list mode
   */
     sFilterConfig.FilterBank = 0;
     sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
