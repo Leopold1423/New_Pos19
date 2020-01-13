@@ -22,9 +22,6 @@ void can_vega_xy(can_msg *data){
 void vega_print_pos(){
   uprintf("VEGA:\r\nx:%6fy:%6fangle:%6f\r\n",vega[0],vega[1],vega[2]);
 }
-
-
-
 void can_func_init() {
   can_callback_add(1, can_suc_rx);
   can_callback_add(VEGA_ANGLE_ID,can_vega_angle);

@@ -209,7 +209,11 @@ void flag_task(){
     calcul_XY();
     if(flag.wave==1){
       send_wave(position.world_x,0,position.world_y,position.world_yaw);       
-    }                  
+    }
+    // if(test_flag_value[0] == 1){
+    //   uprintf("%6f\r\n",angle.yawangle[2]);
+    //   test_flag_value[0] = 0;
+    // }                  
   }
   if(flag._50ms==1){
     flag._50ms=0;  

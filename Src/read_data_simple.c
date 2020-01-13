@@ -11,6 +11,7 @@
 #include "math.h"
 #include "easy_angle.h"
 #include "main.h"
+#include "cmd_func.h"
 
 asm330lhh_ctx_t dev_ctx;
 Angle angle;
@@ -158,9 +159,9 @@ void asm330lhh_init()
 }
 //角速度积分计算角度
 float delta_time=0.005;
-float k_n=1.00555;
-float k_s=1.00510;
-float w_zero=-0.194765463;
+float k_n=1.00434;
+float k_s=1.005412;
+float w_zero=-0.324892041;//-0.194765463;
 static int num=0;                 //TODO前100次数据会有错
 void Get_Yaw_angle()
 {
@@ -188,7 +189,7 @@ void Get_Yaw_angle()
     pre_angle.angular_rate[2] = pre_angle.angular_rate_dps[0] * k1 + pre_angle.angular_rate_dps[1] * k2 + pre_angle.angular_rate_dps[2] * k3;  
     angle.angular_rate[2] = pre_angle.angular_rate[2] - w_zero  ;
     
-    // if(flag.test1==1)                    //零漂采集得w_zreo
+    // if(test_flag_value[0]==1)                    //零漂采集得w_zreo
     // {
     //   uprintf("%f\r\n",pre_angle.angular_rate[2]);
     // }
@@ -200,11 +201,22 @@ void Get_Yaw_angle()
   {
     angle.delta_yawangle[2] = delta_time * (angle.angular_rate[2])*k_n;
     angle.yawangle[2] += angle.delta_yawangle[2];   
+
+    // if(test_flag_value[0]==1)                    //零漂采集得w_zreo
+    // {
+    //   uprintf("%f\r\n",pre_angle.angular_rate[2]);
+    // }
   }
   if( angle.angular_rate[2]<-0.1)  
   {
     angle.delta_yawangle[2] = delta_time * (angle.angular_rate[2])*k_s;
-    angle.yawangle[2] += angle.delta_yawangle[2];     
+    angle.yawangle[2] += angle.delta_yawangle[2];
+
+    //     if(test_flag_value[0]==1)                    //零漂采集得w_zreo
+    // {
+    //   uprintf("%f\r\n",pre_angle.angular_rate[2]);
+    // }
+
   }  
 }
 

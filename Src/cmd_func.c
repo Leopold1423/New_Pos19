@@ -8,9 +8,9 @@
 #include "read_data_simple.h"
 #include "calculate.h"
 
-int test_flag_value[5];
-int test_int_value[5];
-float test_float_value[5];
+int test_flag_value[5] ={0};
+int test_int_value[5]={0};
+float test_float_value[5]={0};
 
 //hello
 void cmd_hello_func(int argc,char *argv[]){
@@ -111,7 +111,7 @@ void cmd_test_float_func(int argc,char *argv[]){
 void cmd_test_flag_func(int argc,char *argv[]){
   int n = atoi(argv[1]);
   switch (n){  
-  case 1:test_flag_value[0] = 1;test_flag_value[1] = 0;test_flag_value[3] = 0;uprintf("test1 OK\r\n");break;
+  case 1:test_flag_value[0] = 1;test_flag_value[1] = 0;test_flag_value[3] = 0;uprintf("%6f\r\n",angle.yawangle[2]);break;//uprintf("test1 OK\r\n");break;
   case 2:test_flag_value[1] = 1;test_flag_value[0] = 0;test_flag_value[3] = 0;uprintf("test2 OK\r\n");break;
   case 3:test_flag_value[3] = 1;test_flag_value[0] = 0;test_flag_value[1] = 0;uprintf("test3 OK\r\n");break;
   case 4:test_flag_value[0] = 2;test_flag_value[1] = 0;test_flag_value[3] = 0;uprintf("test4 OK\r\n");break;
